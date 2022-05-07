@@ -3,15 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:39:41 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/06 14:10:42 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/06 22:13:41 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "conversion.h"
+#include "../ft_printf.h"
 #include "../libft/libft.h"
+
+void	ft_check_flags_putnbr(t_arg elem, int n, int *i)
+{
+	if (elem.f_plus == 1)
+	{
+		write (1, "+", 1);
+		*i += 1;
+	}
+	else if (elem.f_space == 1)
+	{
+		write (1, " ", 1);
+		*i += 1;
+	}
+	ft_putnbr(n, i);
+}
 
 void	ft_putnbr(int n, int *i)
 {

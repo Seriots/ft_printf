@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 10:00:48 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/06 14:52:46 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/06 22:05:42 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,12 @@ void	ft_setzero(int flags[5])
 		flags[i] = 0;
 }
 
-int	ft_convert_flags(int flags[5])
+t_arg	ft_convert_flags(int flags[5], t_arg elem)
 {
-	int	i;
-	int	result;
-
-	i = -1;
-	result = 0;
-	while (++i < 5)
-	{
-		if (flags[i] == 1)
-			result += ft_power(2, i);
-		flags[i] = 0;
-	}
-	return (result);
+	elem.f_zero = flags[0];
+	elem.f_space = flags[1];
+	elem.f_plus = flags[2];
+	elem.f_minus = flags[3];
+	elem.f_hashtag = flags[4];
+	return (elem);
 }

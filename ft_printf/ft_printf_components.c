@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_components.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 09:35:57 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/06 14:52:21 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/06 22:14:05 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_arg	ft_parse(const char *s, int *position)
 	elem.precision = -1;
 	while (ft_is_base(s[++i], FLAG_BASE) != -1 && s[i])
 		flags[ft_is_base(s[i], FLAG_BASE)] = 1;
-	elem.flags = ft_convert_flags(flags);
+	elem = ft_convert_flags(flags, elem);
 	i -= 1;
 	while (ft_isdigit(s[++i]))
 		elem.min_champs = (elem.min_champs * 10) + (s[i] - 48);
@@ -62,7 +62,7 @@ int	ft_printf_args(t_arg element, va_list ap)
 
 	i = 0;
 	if (element.attribut == 'd' || element.attribut == 'i')
-		ft_putnbr(va_arg(ap, int), &i);
+		ft_check_flags_putnbr(element, va_arg(ap, int), &i);
 	else if (element.attribut == 'c')
 		i = ft_putchar((char)va_arg(ap, int));
 	else if (element.attribut == 's')
@@ -89,12 +89,13 @@ int	ft_check_parse(t_arg element, va_list ap, int *i, const char *s)
 	int	count;
 
 	count = 0;
+	tmp = *i;
 	element = ft_parse(s, i);
 	if (element.attribut == 0)
 	{
 		write(1, "%", 1);
 		*i = tmp;
-		i ++;
+		count ++;
 	}
 	else
 		count += ft_printf_args(element, ap);
@@ -106,11 +107,13 @@ int	ft_printfwork(va_list ap, const char *s)
 	int		i;
 	int		count;
 	t_arg	element;
+	int		test;
 
 	i = 0;
 	count = 0;
 	while (s[i])
 	{
+		//ft_putnbr(i, &test);
 		if (s[i] == '%')
 			count += ft_check_parse(element, ap, &i, s);
 		else
