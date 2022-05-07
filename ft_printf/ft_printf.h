@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:24:27 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/06 22:15:59 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/07 10:56:25 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ int		ft_printf(const char *, ...);
 int		ft_check_parse(t_arg element, va_list ap, int *i, const char *s);
 int		ft_printfwork(va_list ap, const char *s);
 t_arg	ft_parse(const char *s, int *position);
-int		ft_printf_args(t_arg element, va_list ap);
+int	ft_printf_args(t_arg element, va_list ap, int print);
 
 /*ft_printf_utils*/
 int		ft_is_base(char c, char *base);
 int		ft_power(int value, int power);
 t_arg	ft_convert_flags(int flags[5], t_arg elem0);
 void	ft_setzero(int flags[5]);
+int		ft_print_minchamps(t_arg elem);
 
 # endif
