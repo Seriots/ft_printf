@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:24:27 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/07 10:56:25 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/08 10:50:30 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef	struct s_arg
 	int		f_hashtag;
 	int		min_champs;
 	int		precision;
+	int		precision_detected;
 	char	attribut;
 } t_arg;
 
@@ -46,5 +47,7 @@ int		ft_power(int value, int power);
 t_arg	ft_convert_flags(int flags[5], t_arg elem0);
 void	ft_setzero(int flags[5]);
 int		ft_print_minchamps(t_arg elem);
+int		ft_print_precision(t_arg elem);
+int		ft_abs(int n);
 
 # endif

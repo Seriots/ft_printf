@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putpointeur.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:16:03 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/07 13:10:06 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/08 10:04:00 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,23 @@
 
 int	ft_check_min_champs_putpointeur(t_arg elem, void *ptr)
 {
-	elem.min_champs -= ft_check_flags_putpointeur(elem, ptr, 0);
+	int	i;
+
+	i = ft_check_flags_putpointeur(elem, ptr, 0);
+	elem.precision -= i;
+	if (elem.precision > 0)
+	{	if (ptr != 0)
+			elem.min_champs -= i + elem.precision + 2;
+		else
+			elem.min_champs -= i + elem.precision;
+	}
+	else
+	{
+		if (ptr != 0)
+			elem.min_champs -= i + 2;
+		else
+			elem.min_champs -= i;
+	}
 	return (ft_check_flags_putpointeur(elem, ptr, 1));
 }
 
@@ -39,20 +55,28 @@ int	ft_check_flags_putpointeur(t_arg elem, void	*ptr, int print)
 		elem.f_zero = 0;
 	if (elem.f_minus == 0)
 	{
-		if (print)
+		if (print && ptr != 0 && elem.f_zero == 1)
 			write(1, "0x", 2);
 		if (print)
 			i += ft_print_minchamps(elem);
+		if (print && ptr != 0 && elem.f_zero == 0)
+			write(1, "0x", 2);
+		if (print && ptr != 0)
+			i += ft_print_precision(elem);
 		i += ft_putpointeur(ptr, print);
 	}
 	else
 	{
-		if (print)
+		if (print && ptr != 0)
 			write(1, "0x", 2);
+		if (print && ptr != 0)
+			i += ft_print_precision(elem);
 		i += ft_putpointeur(ptr, print);
 		if (print)
 			i += ft_print_minchamps(elem);
 	}
+	if (!print && ptr != 0)
+		i -= 2;
 	return (i);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_components.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 09:35:57 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/07 13:22:17 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/08 11:18:42 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@
 
 t_arg	ft_check_precision(const char *s, int *i, t_arg elem)
 {
+	elem.precision_detected = 0;
 	if (s[*i] == '.' && ft_isdigit(s[*i + 1]))
 	{
 		elem.precision = 0;
+		elem.precision_detected = 1;
 		while (ft_isdigit(s[++(*i)]))
 			elem.precision = (elem.precision * 10) + (s[*i] - 48);
 	}
-	if (s[*i + 1] == '-')
+	else if (s[*i] == '.')
 	{
-		*i += 2;
-		while (ft_isdigit(s[*i]))
-			*i += 1;
+		*i += 1;
+		elem.precision_detected = 1;
 	}
 	return (elem);
 }
@@ -40,7 +41,7 @@ t_arg	ft_parse(const char *s, int *position)
 	i = *position;
 	ft_setzero(flags);
 	elem.min_champs = 0;
-	elem.precision = -1;
+	elem.precision = 0;
 	while (ft_is_base(s[++i], FLAG_BASE) != -1 && s[i])
 		flags[ft_is_base(s[i], FLAG_BASE)] = 1;
 	elem = ft_convert_flags(flags, elem);
@@ -62,19 +63,19 @@ int	ft_printf_args(t_arg element, va_list ap, int print)
 
 	i = 0;
 	if (element.attribut == 'd' || element.attribut == 'i')
-		ft_check_flags_putnbr(element, va_arg(ap, int), &i, print);
+		i = ft_check_min_champs_putnbr(element, va_arg(ap, int));
 	else if (element.attribut == 'c')
 		i = ft_check_min_champs_putchar(element, (char)va_arg(ap, int));
 	else if (element.attribut == 's')
-		i = ft_putstr(va_arg(ap, char *), element.precision, print);
+		i = ft_check_min_champs_putstr(element, va_arg(ap, char *));
 	else if (element.attribut == 'p')
 		i = ft_check_min_champs_putpointeur(element, (void *)va_arg(ap, void *));
 	else if (element.attribut == 'u')
-		ft_putnbr_unsigned((unsigned int)va_arg(ap, unsigned int), &i, print);
+		i = ft_check_min_champs_putnbr_unsigned(element, (unsigned int)va_arg(ap, unsigned int));
 	else if (element.attribut == 'x')
-		ft_check_flags_puthexamin(element, (unsigned int)va_arg(ap, unsigned int), &i, print);
+		i = ft_check_min_champs_puthexa_min(element, (unsigned int)va_arg(ap, unsigned int));
 	else if (element.attribut == 'X')
-		ft_check_flags_puthexamaj(element, (unsigned int)va_arg(ap, unsigned int), &i, print);
+		i = ft_check_min_champs_puthexa_maj(element, (unsigned int)va_arg(ap, unsigned int));
 	else if (element.attribut == '%')
 	{
 		write(1, "%", 1);
@@ -91,16 +92,14 @@ int	ft_check_parse(t_arg element, va_list ap, int *i, const char *s)
 	count = 0;
 	tmp = *i;
 	element = ft_parse(s, i);
-	if (element.attribut == 0)
+;	if (element.attribut == 0)
 	{
 		write(1, "%", 1);
 		*i = tmp;
 		count ++;
 	}
 	else
-	{
 		count += ft_printf_args(element, ap, 1);
-	}
 	return (count);
 }
 
@@ -109,13 +108,11 @@ int	ft_printfwork(va_list ap, const char *s)
 	int		i;
 	int		count;
 	t_arg	element;
-	int		test;
 
 	i = 0;
 	count = 0;
 	while (s[i])
 	{
-		//ft_putnbr(i, &test);
 		if (s[i] == '%')
 			count += ft_check_parse(element, ap, &i, s);
 		else
