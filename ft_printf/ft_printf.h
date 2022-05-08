@@ -6,20 +6,19 @@
 /*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 10:24:27 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/08 10:50:30 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/08 15:42:20 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#define FLAG_BASE "0 +-#"
-#define ATTRIBUT_BASE "cspdiuxX%"
+# include <stdarg.h>
+# include <unistd.h>
+# include <stdlib.h>
+# define FLAG_BASE "0 +-#"
+# define ATTRIBUT_BASE "cspdiuxX%"
 
-typedef	struct s_arg
+typedef struct s_arg
 {
 	int		f_zero;
 	int		f_space;
@@ -30,16 +29,16 @@ typedef	struct s_arg
 	int		precision;
 	int		precision_detected;
 	char	attribut;
-} t_arg;
+}			t_arg;
 
 /*ft_printf*/
-int		ft_printf(const char *, ...);
+int		ft_printf(const char *s, ...);
 
 /*ft_printf_components*/
 int		ft_check_parse(t_arg element, va_list ap, int *i, const char *s);
 int		ft_printfwork(va_list ap, const char *s);
 t_arg	ft_parse(const char *s, int *position);
-int	ft_printf_args(t_arg element, va_list ap, int print);
+int		ft_printf_args(t_arg element, va_list ap, int print);
 
 /*ft_printf_utils*/
 int		ft_is_base(char c, char *base);
@@ -50,4 +49,4 @@ int		ft_print_minchamps(t_arg elem);
 int		ft_print_precision(t_arg elem);
 int		ft_abs(int n);
 
-# endif
+#endif

@@ -6,7 +6,7 @@
 /*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:39:41 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/08 12:19:22 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/08 14:56:31 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../ft_printf.h"
 #include "../libft/libft.h"
 
-int	ft_check_min_champs_putnbr(t_arg elem, int n)
+int	ft_check_putnbr(t_arg elem, int n)
 {
 	int	i;
 	int	minusmark;
@@ -27,7 +27,7 @@ int	ft_check_min_champs_putnbr(t_arg elem, int n)
 		i += ft_print_precision(elem);
 		return (i);
 	}
-	i =  ft_check_flags_putnbr(elem, n, 0);
+	i = ft_check_flags_putnbr(elem, n, 0);
 	if (elem.f_space || elem.f_plus || n < 0)
 		minusmark += 1;
 	elem.precision -= i;
@@ -38,66 +38,71 @@ int	ft_check_min_champs_putnbr(t_arg elem, int n)
 	return (ft_check_flags_putnbr(elem, n, 1));
 }
 
+void	ft_check_flags_putnbr2(int *i, t_arg elem, int n, int print)
+{
+	if (print && (elem.f_zero == 0 || elem.precision_detected == 1))
+		*i += ft_print_minchamps(elem);
+	if (elem.f_plus == 1)
+	{
+		if (print && n >= 0)
+			write (1, "+", 1);
+		if (n >= 0 && print)
+			*i += 1;
+	}
+	else if (elem.f_space == 1)
+	{
+		if (print && n >= 0)
+			write (1, " ", 1);
+		if (n >= 0 && print)
+			*i += 1;
+	}
+	if (print && n < 0)
+		write(1, "-", 1);
+	if (n < 0 && print)
+		*i += 1;
+	if (elem.f_zero == 1 && print && elem.precision_detected == 0)
+		*i += ft_print_minchamps(elem);
+	if (print)
+		*i += ft_print_precision(elem);
+	ft_putnbr(n, i, print);
+}
+
+void	ft_check_flags_putnbr3(int *i, t_arg elem, int n, int print)
+{
+	if (elem.f_plus == 1)
+	{
+		if (print && n >= 0)
+			write (1, "+", 1);
+		if (n >= 0 && print)
+			*i += 1;
+	}
+	else if (elem.f_space == 1)
+	{
+		if (print && n >= 0)
+			write (1, " ", 1);
+		if (n >= 0 && print)
+			*i += 1;
+	}
+	if (print && n < 0)
+		write(1, "-", 1);
+	if (n < 0 && print)
+		*i += 1;
+	if (print)
+		*i += ft_print_precision(elem);
+	ft_putnbr(n, i, print);
+	if (print)
+		*i += ft_print_minchamps(elem);
+}
+
 int	ft_check_flags_putnbr(t_arg elem, int n, int print)
 {
 	int	i;
 
 	i = 0;
 	if (elem.f_minus == 0)
-	{
-		if ((elem.f_zero == 0 && print) || (elem.precision_detected == 1 && print))
-			i += ft_print_minchamps(elem);
-		if (elem.f_plus == 1)
-		{
-			if (print && n >= 0)
-				write (1, "+", 1);
-			if (n >= 0 && print)
-				i += 1;
-		}
-		else if (elem.f_space == 1)
-		{
-			if (print && n >= 0)
-				write (1, " ", 1);
-			if (n >= 0 && print)
-				i += 1;
-		}
-		if (print && n < 0)
-			write(1, "-", 1);
-		if (n < 0 && print)
-			i += 1;
-		if (elem.f_zero == 1 && print && elem.precision_detected == 0)
-			i += ft_print_minchamps(elem);
-		if (print)
-			i += ft_print_precision(elem);
-		ft_putnbr(n, &i, print);
-	}
+		ft_check_flags_putnbr2(&i, elem, n, print);
 	else
-	{
-		if (elem.f_plus == 1)
-		{
-			if (print && n >= 0)
-				write (1, "+", 1);
-			if (n >= 0 && print)
-				i += 1;
-		}
-		else if (elem.f_space == 1)
-		{
-			if (print && n >= 0)
-				write (1, " ", 1);
-			if (n >= 0 && print)
-				i += 1;
-		}
-		if (print && n < 0)
-			write(1, "-", 1);
-		if (n < 0 && print)
-			i += 1;
-		if (print)
-			i += ft_print_precision(elem);
-		ft_putnbr(n, &i, print);
-		if (print)
-			i += ft_print_minchamps(elem);
-		
-	}
+		ft_check_flags_putnbr3(&i, elem, n, print);
 	return (i);
 }
 
@@ -114,58 +119,5 @@ void	ft_putnbr(int n, int *i, int print)
 		ft_putnbr(n / 10, i, print);
 	if (print)
 		ft_putchar((char)((ft_abs(n % 10)) + 48), print);
-	*i += 1;
-}
-
-int	ft_check_min_champs_putnbr_unsigned(t_arg elem, unsigned int n)
-{
-	int	i;
-
-	if (n == 0 && elem.precision_detected == 1 && elem.precision == 0)
-	{
-		elem.min_champs -= elem.precision;
-		i = ft_print_minchamps(elem);
-		i += ft_print_precision(elem);
-		return (i);
-	}
-	i = ft_check_flags_putnbr_unsigned(elem, n, 0);
-	elem.precision -= i;
-	if (elem.precision > 0)
-		elem.min_champs -= i + elem.precision;
-	else
-		elem.min_champs -= i;
-	return (ft_check_flags_putnbr_unsigned(elem, n, 1));
-}
-
-int	ft_check_flags_putnbr_unsigned(t_arg elem, unsigned int n, int print)
-{
-	int	i;
-
-	i = 0;
-	if (elem.f_minus == 0)
-	{
-		if (print)
-			i += ft_print_minchamps(elem);
-		if (print)
-			i += ft_print_precision(elem);
-		ft_putnbr_unsigned(n, &i, print);
-	}
-	else
-	{
-		if (print)
-			i += ft_print_precision(elem);
-		ft_putnbr_unsigned(n, &i, print);
-		if (print)
-			i += ft_print_minchamps(elem);
-	}
-	return (i);
-}
-
-void	ft_putnbr_unsigned(unsigned int n, int *i, int print)
-{
-	if (n > 9)
-		ft_putnbr_unsigned(n / 10, i, print);
-	if (print)
-		ft_putchar((char)((n % 10) + 48), print);
 	*i += 1;
 }

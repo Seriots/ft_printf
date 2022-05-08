@@ -6,7 +6,7 @@
 /*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 10:00:48 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/08 10:53:22 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/08 15:38:21 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,35 +52,6 @@ t_arg	ft_convert_flags(int flags[5], t_arg elem)
 	elem.f_minus = flags[3];
 	elem.f_hashtag = flags[4];
 	return (elem);
-}
-
-int	ft_print_minchamps(t_arg elem)
-{
-	int	i;
-
-	i = 0;
-	while (i < elem.min_champs)
-	{
-		if (elem.f_zero == 1 && elem.f_minus == 0 && elem.attribut != 'c' && elem.attribut != 's' && elem.precision_detected == 0)
-			write(1, "0", 1);
-		else
-			write (1, " ", 1);
-		i ++;
-	}
-	return (i);
-}
-
-int	ft_print_precision(t_arg elem)
-{
-	int i;
-
-	i = 0;
-	while (i < elem.precision)
-	{
-		write(1, "0", 1);
-		i++;
-	}
-	return (i);
 }
 
 int	ft_abs(int n)

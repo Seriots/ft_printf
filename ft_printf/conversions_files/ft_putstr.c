@@ -6,13 +6,13 @@
 /*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:43:35 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/08 12:27:13 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/08 14:58:48 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "conversion.h"
 
-int	ft_check_min_champs_putstr(t_arg elem, char *s)
+int	ft_check_putstr(t_arg elem, char *s)
 {
 	elem.min_champs -= ft_check_flags_putstr(elem, s, 0);
 	return (ft_check_flags_putstr(elem, s, 1));
@@ -45,7 +45,6 @@ int	ft_putstr(const char *s, t_arg elem, int print)
 	i = -1;
 	if (s == 0)
 	{
-		
 		if ((print && elem.precision >= 6) || (print && elem.precision == 0))
 			write(1, "(null)", 6);
 		if (elem.precision >= 6 || elem.precision == 0)

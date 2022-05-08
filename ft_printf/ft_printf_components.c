@@ -6,7 +6,7 @@
 /*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 09:35:57 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/08 11:18:42 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/08 15:21:10 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,26 @@ t_arg	ft_parse(const char *s, int *position)
 	return (elem);
 }
 
-int	ft_printf_args(t_arg element, va_list ap, int print)
+int	ft_printf_args(t_arg el, va_list ap, int print)
 {
 	int	i;
 
 	i = 0;
-	if (element.attribut == 'd' || element.attribut == 'i')
-		i = ft_check_min_champs_putnbr(element, va_arg(ap, int));
-	else if (element.attribut == 'c')
-		i = ft_check_min_champs_putchar(element, (char)va_arg(ap, int));
-	else if (element.attribut == 's')
-		i = ft_check_min_champs_putstr(element, va_arg(ap, char *));
-	else if (element.attribut == 'p')
-		i = ft_check_min_champs_putpointeur(element, (void *)va_arg(ap, void *));
-	else if (element.attribut == 'u')
-		i = ft_check_min_champs_putnbr_unsigned(element, (unsigned int)va_arg(ap, unsigned int));
-	else if (element.attribut == 'x')
-		i = ft_check_min_champs_puthexa_min(element, (unsigned int)va_arg(ap, unsigned int));
-	else if (element.attribut == 'X')
-		i = ft_check_min_champs_puthexa_maj(element, (unsigned int)va_arg(ap, unsigned int));
-	else if (element.attribut == '%')
+	if (el.attribut == 'd' || el.attribut == 'i')
+		i = ft_check_putnbr(el, va_arg(ap, int));
+	else if (el.attribut == 'c')
+		i = ft_check_putchar(el, (char)va_arg(ap, int));
+	else if (el.attribut == 's')
+		i = ft_check_putstr(el, va_arg(ap, char *));
+	else if (el.attribut == 'p')
+		i = ft_check_putpointeur(el, (void *)va_arg(ap, void *));
+	else if (el.attribut == 'u')
+		i = ft_check_putnbrunsigned(el, (unsigned int)va_arg(ap, unsigned int));
+	else if (el.attribut == 'x')
+		i = ft_check_puthexa_min(el, (unsigned int)va_arg(ap, unsigned int));
+	else if (el.attribut == 'X')
+		i = ft_check_puthexa_maj(el, (unsigned int)va_arg(ap, unsigned int));
+	else if (el.attribut == '%')
 	{
 		write(1, "%", 1);
 		i = 1;
@@ -92,7 +92,7 @@ int	ft_check_parse(t_arg element, va_list ap, int *i, const char *s)
 	count = 0;
 	tmp = *i;
 	element = ft_parse(s, i);
-;	if (element.attribut == 0)
+	if (element.attribut == 0)
 	{
 		write(1, "%", 1);
 		*i = tmp;

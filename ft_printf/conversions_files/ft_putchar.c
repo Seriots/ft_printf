@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:04:18 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/07 13:20:44 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/08 14:57:33 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "conversion.h"
 
-int	ft_check_min_champs_putchar(t_arg elem, char c)
+int	ft_check_putchar(t_arg elem, char c)
 {
 	elem.min_champs -= ft_check_flags_putchar(elem, c, 0);
 	return (ft_check_flags_putchar(elem, c, 1));

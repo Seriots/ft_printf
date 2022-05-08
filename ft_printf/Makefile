@@ -1,5 +1,16 @@
-SRCS = 	ft_printf.c conversions_files/ft_putstr.c conversions_files/ft_putnbr.c conversions_files/ft_putchar.c conversions_files/ft_puthexa.c conversions_files/ft_putpointeur.c \
-		ft_printf_utils.c ft_printf_components.c
+
+SRCS = 	ft_printf.c \
+		ft_printf_utils.c \
+		ft_printf_utils2.c \
+		ft_printf_components.c \
+		conversions_files/ft_putstr.c \
+		conversions_files/ft_putnbr.c \
+		conversions_files/ft_putchar.c \
+		conversions_files/ft_puthexa_min.c \
+		conversions_files/ft_putpointeur.c \
+		conversions_files/ft_putpointeur2.c \
+		conversions_files/ft_puthexa_maj.c \
+		conversions_files/ft_putnbr_unsigned.c \
 
 OBJS = ${SRCS:.c=.o}
 
@@ -65,6 +76,8 @@ $(NAME) : ${OBJS} ${OBJS_LIBFT}
 ./%o:./%.c
 		gcc -c $(FLAGS) -I$(HEADERS) $< -o $@
 
+bonus : $(NAME)
+
 clean :
 	rm -rf ${OBJS} $(OBJS_LIBFT)
 
@@ -72,3 +85,5 @@ fclean : clean
 	rm -rf ${NAME}
 
 re : fclean all
+
+.PHONY : all re clean fclean bonus
