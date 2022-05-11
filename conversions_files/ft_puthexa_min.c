@@ -6,11 +6,13 @@
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 14:11:13 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/10 13:23:03 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/11 10:51:28 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+#include "conversions.h"
+#include <unistd.h>
 
 int	ft_check_puthexa_min(t_arg elem, unsigned int n)
 {

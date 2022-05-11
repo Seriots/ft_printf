@@ -6,11 +6,13 @@
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:16:03 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/10 13:23:03 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/11 10:51:48 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+#include "conversions.h"
+#include <unistd.h>
 
 void	ft_check_flags_putpointeur2(int *i, void *ptr, int print, t_arg elem)
 {

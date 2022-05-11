@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgiband <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 10:00:48 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/08 15:38:21 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/11 11:20:49 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_power(int value, int power)
-{
-	if (power < 0)
-		return (1 / ft_power(value, -power));
-	if (power == 0)
-		return (1);
-	return (value * (ft_power(value, power - 1)));
-}
 
 int	ft_is_base(char c, char *base)
 {
@@ -59,4 +50,17 @@ int	ft_abs(int n)
 	if (n < 0)
 		return (-n);
 	return (n);
+}
+
+void	ft_init(t_arg *elem)
+{
+	elem->f_zero = 0;
+	elem->f_space = 0;
+	elem->f_plus = 0;
+	elem->f_minus = 0;
+	elem->f_hashtag = 0;
+	elem->min_champs = 0;
+	elem->precision = 0;
+	elem->precision_detected = 0;
+	elem->attribut = 0;
 }

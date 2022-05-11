@@ -6,11 +6,15 @@
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 09:35:57 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/10 13:18:08 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/11 11:20:03 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdarg.h>
+#include <unistd.h>
+#include "conversions_files/conversions.h"
+#include "libft/libft.h"
 
 t_arg	ft_check_precision(const char *s, int *i, t_arg elem)
 {
@@ -108,6 +112,7 @@ int	ft_printfwork(va_list ap, const char *s)
 	t_arg	element;
 
 	i = 0;
+	ft_init(&element);
 	count = 0;
 	while (s[i])
 	{

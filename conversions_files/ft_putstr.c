@@ -6,11 +6,13 @@
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:43:35 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/10 13:23:03 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/11 11:17:37 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+#include "conversions.h"
+#include <unistd.h>
 
 int	ft_check_putstr(t_arg elem, char *s)
 {

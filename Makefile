@@ -4,6 +4,10 @@ CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
 
+INC = .
+
+LIBFT = libft/libft.a
+
 SRCS = 	ft_printf.c \
 		ft_printf_utils.c \
 		ft_printf_utils2.c \
@@ -21,24 +25,23 @@ OBJS = ${SRCS:.c=.o}
 
 all : $(NAME)
 
-ft_lib:
-	make -C libft
+$(LIBFT):
+	make -C $(dir $(LIBFT))
 
-$(NAME) : ft_lib ${OBJS}
+$(NAME) : $(LIBFT) ${OBJS}
 	cp libft/libft.a $(NAME)
 	ar rc $(NAME) $(OBJS)
 
-%o:%.c
-	$(CC) $(FLAGS) -c -o  $@ $<
+%.o:%.c
+	$(CC) $(FLAGS) -I$(INC) -c -o  $@ $<
 
 bonus : all
 
 clean :
-	make clean -C libft
-	rm -rf ${OBJS} $(OBJS_LIBFT)
+	make -C $(dir $(LIBFT)) fclean
+	rm -rf ${OBJS}
 
 fclean : clean
-	make fclean -C libft
 	rm -rf ${NAME}
 
 re : fclean all

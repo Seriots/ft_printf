@@ -6,11 +6,12 @@
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 14:07:50 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/10 13:23:03 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/11 11:17:56 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+#include "conversions.h"
 
 int	ft_check_putpointeur(t_arg elem, void *ptr)
 {

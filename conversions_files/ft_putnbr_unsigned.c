@@ -6,11 +6,13 @@
 /*   By: lgiband <lgiband@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 14:35:02 by lgiband           #+#    #+#             */
-/*   Updated: 2022/05/10 13:23:03 by lgiband          ###   ########.fr       */
+/*   Updated: 2022/05/11 10:51:05 by lgiband          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+#include "conversions.h"
+#include <unistd.h>
 
 int	ft_check_putnbrunsigned(t_arg elem, unsigned int n)
 {
